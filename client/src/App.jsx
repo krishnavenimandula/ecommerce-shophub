@@ -1,26 +1,26 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import AuthLogin from "./store/pages/auth/login";
-import AuthRegister from "./store/pages/auth/register";
+import AuthLogin from "./pages/auth/login";
+import AuthRegister from "./pages/auth/register";
 import AuthLayout from "./components/ui/auth/layout";
-import AdminDashBoard from "./store/pages/admin-view/dashboard";
-import AdminProducts from "./store/pages/admin-view/products";
-import AdminOrders from "./store/pages/admin-view/orders";
-import AdminFeatures from "./store/pages/admin-view/features";
+import AdminDashBoard from "./pages/admin-view/dashboard";
+import AdminProducts from "./pages/admin-view/products";
+import AdminOrders from "./pages/admin-view/orders";
+import AdminFeatures from "./pages/admin-view/features";
 import AdminLayout from "./components/admin-view/layout";
 import ShoppingLayout from "./components/shopping-view/layout";
-import NotFound from "./store/pages/not-found";
-import ShoppingHome from "./store/pages/shopping-view/home";
-import ShoppingList from "./store/pages/shopping-view/listing";
-import ShoppingCheckOut from "./store/pages/shopping-view/checkout";
-import ShoppingAccount from "./store/pages/shopping-view/account";
+import NotFound from "./pages/not-found";
+import ShoppingHome from "./pages/shopping-view/home";
+import ShoppingList from "./pages/shopping-view/listing";
+import ShoppingCheckOut from "./pages/shopping-view/checkout";
+import ShoppingAccount from "./pages/shopping-view/account";
 import CheckAuth from "./components/common/checkauth";
 import { RollerCoaster } from "lucide-react";
-import UnAuthPage from "./store/pages/unauth-page";
+import UnAuthPage from "./pages/unauth-page";
+import { useSelector } from "react-redux";
 
 function App() {
-  const isAuthenticated = false;
-  const user = null;
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
