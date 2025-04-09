@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -17,16 +17,36 @@ import ShoppingAccount from "./pages/shopping-view/account";
 import CheckAuth from "./components/common/checkauth";
 import { RollerCoaster } from "lucide-react";
 import UnAuthPage from "./pages/unauth-page";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./store/auth-slice";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function App() {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  console.log(user, isAuthenticated, isLoading);
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  if (isLoading) return <Skeleton className="w-[800] bg-black h-[20px]" />;
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* rendering  common components*/}
       {/* <h1>Header component</h1> */}
       <Routes>
+        <Route
+          path="/"
+          element={
+            <CheckAuth
+              isAuthenticated={isAuthenticated}
+              user={user}
+            ></CheckAuth>
+          }
+        />
         <Route
           path="/auth"
           element={
@@ -67,8 +87,8 @@ function App() {
           <Route path="account" element={<ShoppingAccount />} />
         </Route>
 
-        <Route path="*" element={<NotFound />} />
         <Route path="/unauth-page" element={<UnAuthPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

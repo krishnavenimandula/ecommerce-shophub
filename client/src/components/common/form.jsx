@@ -57,10 +57,10 @@ function CommonForm({
             onValueChange={(value) =>
               setFormData({ ...formData, [getControlItem.name]: value })
             }
-            value="value"
+            value={value}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={getControlItem.placeholder} />
+              <SelectValue placeholder={getControlItem.label} />
             </SelectTrigger>
 
             <SelectContent>
