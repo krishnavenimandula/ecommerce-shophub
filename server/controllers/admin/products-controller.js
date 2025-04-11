@@ -25,6 +25,8 @@ const handleImageUpload = async (req, res) => {
 
 const addProduct = async (req, res) => {
   try {
+    console.log(req, "Request");
+
     const {
       image,
       title,
@@ -46,6 +48,7 @@ const addProduct = async (req, res) => {
       totalStock,
     });
     await newlyCreatedProduct.save();
+    console.log(newlyCreatedProduct);
     res.status(201).json({
       success: true,
       data: newlyCreatedProduct,
@@ -63,6 +66,7 @@ const addProduct = async (req, res) => {
 const fetchAllProducts = async (req, res) => {
   try {
     const listOfProducts = await Product.find({});
+    console.log(listOfProducts, "Products");
     res.status(200).json({
       success: true,
       data: listOfProducts,
