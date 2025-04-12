@@ -11,12 +11,7 @@ export const addNewProduct = createAsyncThunk(
   async (formData) => {
     const result = await axios.post(
       "http://localhost:5000/api/admin/products/add",
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json,",
-        },
-      }
+      formData
     );
     return result?.data;
   }
@@ -68,7 +63,7 @@ const AdminProductsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        console.log(action.payload, "action");
+        // console.log(action.payload, "action");
         state.isLoading = false;
         state.productList = action.payload.data;
       })

@@ -12,6 +12,9 @@ import { addProductFormElements } from "@/config";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct, fetchAllProducts } from "@/store/admin/product-slice";
+import { toast } from "sonner";
+import { data } from "react-router-dom";
+import AdminProductTile from "@/components/admin-view/product-tile";
 
 const initialFormData = {
   image: null,
@@ -33,12 +36,13 @@ function AdminProducts() {
   const [imageFile, setImageFile] = useState(null);
   const [uploadImageUrl, setUploadImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
+
+  const [currentEditedId, setCurrentEditedId] = useState(null);
   const { productList } = useSelector((state) => state.adminProducts);
   const dispatch = useDispatch();
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(formData, "formData");
     dispatch(
       addNewProduct({
         ...formData,
@@ -46,6 +50,13 @@ function AdminProducts() {
       })
     ).then((data) => {
       console.log(data);
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+        setOpenCreateProductsDialog(false);
+        setImageFile(null);
+        setFormData(initialFormData);
+        toast.success(data?.payload?.message || "Product added successfully!");
+      }
     });
   }
   useEffect(() => {
@@ -62,7 +73,18 @@ function AdminProducts() {
           Add New Product
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {productList && productList.length > 0
+          ? productList.map((productItem) => (
+              <AdminProductTile
+                setFormData={setFormData}
+                setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+                setCurrentEditedId={setCurrentEditedId}
+                product={productItem}
+              />
+            ))
+          : null}
+      </div>
       <Sheet
         open={openCreateProductsDialog}
         onOpenChange={() => {
@@ -80,6 +102,7 @@ function AdminProducts() {
             setUploadImageUrl={setUploadImageUrl}
             imageLoadingState={imageLoadingState}
             setImageLoadingState={setImageLoadingState}
+            currentEditedId={currentEditedId}
           />
           <div className="py-6">
             <CommonForm
