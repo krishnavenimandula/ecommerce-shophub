@@ -22,11 +22,10 @@ const handleImageUpload = async (req, res) => {
 };
 
 //add a new product
-
 const addProduct = async (req, res) => {
-  try {
-    console.log(req, "Request");
+  console.log(req, "products req");
 
+  try {
     const {
       image,
       title,
@@ -47,17 +46,17 @@ const addProduct = async (req, res) => {
       salePrice,
       totalStock,
     });
+
     await newlyCreatedProduct.save();
-    console.log(newlyCreatedProduct);
     res.status(201).json({
       success: true,
       data: newlyCreatedProduct,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e);
     res.status(500).json({
       success: false,
-      message: "Error occured ",
+      message: "Error occured",
     });
   }
 };
