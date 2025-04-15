@@ -1,6 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const CLIENT_SECRET_KEY = process.env.CLIENT_SECRET_KEY;
 
 //register
 const registerUser = async (req, res) => {
@@ -65,7 +70,7 @@ const loginUser = async (req, res) => {
         role: checkUser.role,
         email: checkUser.email,
       },
-      "CLIENT_SECRET_KEY",
+      CLIENT_SECRET_KEY,
       { expiresIn: "60m" }
     );
 
