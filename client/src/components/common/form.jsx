@@ -22,6 +22,7 @@ function CommonForm({
   setFormData,
   onSubmit,
   buttonText,
+  isBtnDisabled,
 }) {
   console.log(formControls);
 
@@ -126,7 +127,7 @@ function CommonForm({
         ))}
       </div>
       {/* check if there is a provided buttontext or the default Submit */}
-      <Button type="submit" className="mt-2 w-full">
+      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
         {buttonText || "Submit"}
       </Button>
     </form>
