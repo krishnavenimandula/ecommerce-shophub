@@ -1,5 +1,5 @@
 function ShoppingHeader() {
-  return <div>Shopping view Header</div>;
+  return <div>Shopping header</div>;
 }
 
 export default ShoppingHeader;
