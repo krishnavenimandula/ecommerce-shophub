@@ -47,6 +47,7 @@ const loginUser = async (req, res) => {
   console.log(req);
   try {
     const checkUser = await User.findOne({ email });
+    console.log(checkUser);
     if (!checkUser)
       return res.json({
         success: false,
@@ -69,6 +70,7 @@ const loginUser = async (req, res) => {
         id: checkUser._id,
         role: checkUser.role,
         email: checkUser.email,
+        userName: checkUser.userName,
       },
       CLIENT_SECRET_KEY,
       { expiresIn: "60m" }
@@ -82,6 +84,7 @@ const loginUser = async (req, res) => {
         role: checkUser.role,
         email: checkUser.email,
         id: checkUser._id,
+        userName: checkUser.userName,
       },
     });
   } catch (e) {

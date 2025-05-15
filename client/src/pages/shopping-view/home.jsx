@@ -1,5 +1,5 @@
 function ShoppingHome() {
-  return <div>Shopping view home</div>;
+  return <div></div>;
 }
 
 export default ShoppingHome;
