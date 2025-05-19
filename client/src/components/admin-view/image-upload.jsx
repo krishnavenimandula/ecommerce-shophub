@@ -16,7 +16,7 @@ function ProductImageUpload({
   isEditMode,
 }) {
   const inputRef = useRef(null);
-  console.log(isEditMode, "isEditMode");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   function handleImagefileChange(event) {
     console.log(event.target.files);
@@ -47,7 +47,7 @@ function ProductImageUpload({
     const data = new FormData();
     data.append("my_file", imageFile);
     const response = await axios.post(
-      "http://localhost:5000/api/admin/products/upload-image",
+      `${API_BASE_URL}/api/admin/products/upload-image`,
       data
     );
     console.log(response, "response");
